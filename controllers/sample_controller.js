@@ -1,8 +1,13 @@
 const util = require('./util');
 
-const handleSampleResponse = (req) => {
+
+
+const handleSampleResponse = (req,res) => {
+
 
     console.log(req.body);
+    
+
 
     return util.formatResponseForDialogflow(
         [
@@ -15,6 +20,8 @@ const handleSampleResponse = (req) => {
         ''
     );
 };
+
+
 
 module.exports = {
     handleSampleResponse

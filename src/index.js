@@ -8,7 +8,7 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
-const PORT = process.env.PORT || 5000;
+const PORT =  3000;
 
 const homeRoute = require('../routes/home_route');
 const dialogflowRoute = require('../routes/dialogflow_route');
@@ -49,5 +49,3 @@ app.post('/webhook', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is up and running at ${PORT}`);
 });
-const dbConnect = require("../config/database");
-dbConnect();
