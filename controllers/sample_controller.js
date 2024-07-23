@@ -4,7 +4,7 @@ const util = require('./util');
 
 const handleSampleResponse = (req,res) => {
 
-
+    console.log(typeof(req.body));
     console.log(req.body);
     
 
@@ -21,8 +21,3 @@ const handleSampleResponse = (req,res) => {
     );
 };
 
-
-
-module.exports = {
-    handleSampleResponse
-};

@@ -1,74 +1,57 @@
+const db = require('../config/db');
+const util = require('./util');
 
 
-// const saveData = async (req, res) => {
-//     try {
-//         // Extract tag from request body
-//         const tag = req.body.fulfillmentInfo.tag;
+const DataSaveSampleResponse = (req,res) => {
 
-//         // Validate the tag
-//         if (!tag) {
-//             return res.status(400).send({ message: 'Tag is required' });
-//         }
+    console.log(typeof(req.body));
+    console.log(req.body);
 
-//         // Define the SQL query and values
-//         const sql = 'INSERT INTO res1 (tag) VALUES (?)';
-//         const values = [tag];
+ 
+     const tage = req.body.fulfillmentInfo.tag;
 
-//         // Perform the query using await
-//         const result = await query(sql, values);
+    
+    const query = `
+        INSERT INTO dialogflow_data2 (
+            tage,
+            text
+        
+        ) VALUES (?,?)
+    `;
+    db.query(
+        query,
+        [
+           tage,
+           text
+        ],
+        (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            return res.send.util.formatResponseForDialogflow(
+               [
+                'Data saved successfully'
+               ],
+               '',
+               '',
+               '',
+            );
+        }
+    );
 
-//         // Send success response
-//         console.log('Response saved to MySQL:', result);
-//         res.status(200).send('Success');
-//     } catch (error) {
-//         // Log the error and send a failure response
-//         console.error('Error saving data:', error);
-//         res.status(500).send({ message: 'Error saving data' });
-//     }
-// };
 
-// module.exports = {
-//     saveData
-// };
-
-
-
-const util = require('./util1');
-
-const handleSampleResponse = async (req, res) => {
-    try {
-        const text1 = req.body.fulfillmentInfo.tag;
-
-        console.log(text1);
-
-        // Log request body
-        console.log(req.body);
-
-        // Insert the tag into the database
-        await util.saveDataToDb(text1);
-
-        // Format the response for Dialogflow
-        const response = util.formatResponseForDialogflow(
-            [
-                'This is a sample response from webhook.',
-                'Another sample response.',
-                'Hello chatbot developer'
-            ],
-            '',  // sessionInfo
-            '',  // targetFlow
-            ''   // targetPage
-        );
-
-        // Send the response back to the client
-        res.status(200).json(response);
-    } catch (error) {
-        // Log error and send error response
-        console.error('Error handling sample response:', error);
-        res.status(500).json(util.getErrorMessage());
-    }
+    return util.formatResponseForDialogflow(
+        [
+            'Data Saved Sucessfully'
+        ],
+        '',
+        '',
+        ''
+    );
 };
+
+
 
 module.exports = {
-    handleSampleResponse
+    DataSaveSampleResponse
 };
-
